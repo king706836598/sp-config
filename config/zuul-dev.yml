@@ -1,7 +1,9 @@
 spring:
   application:
     name: zuul
-    
+  cloud:
+    config:
+      override-none: true  
 server:
   port: 3001
   
@@ -12,16 +14,10 @@ eureka:
 
 zuul:
   retryable: true
-
-#    默认配置,可以省略
-#  routes:
-#    item-service: /item-service/**
-#    user-service: /user-service/**
-#    order-service: /order-service/**
     
 ribbon:
   ConnectTimeout: 1000
-  ReadTimeout: 1000
+  ReadTimeout: 2000
   MaxAutoRetriesNextServer: 1
   MaxAutoRetries: 1
   
@@ -31,10 +27,11 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 500
-            
+            timeoutInMilliseconds: 1000
+
 management:
   endpoints:
     web:
       exposure:
         include: hystrix.stream
+            
